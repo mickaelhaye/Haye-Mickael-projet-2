@@ -30,7 +30,7 @@ public class AnalyticsCounter {
    * @return List with all the symptoms
    */ 
   public List<String> getSymptoms() {
-    return this.reader.getSymptoms();
+    return reader.getSymptoms();
   }
 
   /**
@@ -40,14 +40,10 @@ public class AnalyticsCounter {
    */
   public Map<String, Integer> countSymptoms(List<String> symptoms) {
     Map<String, Integer> map = new HashMap<String, Integer>();
-    for (int i = 0; i < symptoms.size(); i++) {
-      if (map.containsKey(symptoms.get(i))) {
-        String keyMap = symptoms.get(i);
-        int valMap = map.get(keyMap);
-        valMap++;
-        map.put(keyMap, valMap);
-      } else {
-        map.put(symptoms.get(i), 1);
+    for (String str:symptoms) {
+      map.putIfAbsent(str,0);
+      if (map.containsKey(str)) {
+        map.put(str, map.get(str) + 1);
       }
     }
     return map;
@@ -69,7 +65,7 @@ public class AnalyticsCounter {
    */
   public void writeSymptoms(Map<String, Integer> symptoms) {
     try {
-      this.writer.writeSymptoms(symptoms);
+      writer.writeSymptoms(symptoms);
     } catch (Exception e) {
       e.printStackTrace();
     }
