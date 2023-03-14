@@ -20,8 +20,8 @@ public class WriteSymptomDataToFile implements ISymptomWriter {
   public void writeSymptoms(Map<String, Integer> symptoms) {
     try {
       BufferedWriter writer = new BufferedWriter(new FileWriter("result.out"));
-      for (Map.Entry<String, Integer> entry:symptoms.entrySet()) {      
-        writer.write(entry.getKey() + " : " + entry.getValue());
+      for (String entry:symptoms.keySet()) {      
+        writer.write(entry + " : " + symptoms.get(entry));
         writer.newLine();
       }
       writer.close();
